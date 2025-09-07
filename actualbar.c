@@ -51,9 +51,11 @@ int main() {
     time_t now = time(NULL);
     strftime(buf, sizeof(buf), "%a %d %b %Y %I:%M:%S %p", localtime(&now));
 
-    XClearWindow(dpy, bar);
     int text_width = XTextWidth(XQueryFont(dpy, font), buf, strlen(buf));
-    XDrawString(dpy, bar, gc, (width - text_width) / 2, height - 6, buf, strlen(buf));
+    int text_x = (width - text_width) / 2;
+
+    XClearWindow(dpy, bar);
+    XDrawString(dpy, bar, gc, text_x, height - 6, buf, strlen(buf));
     XFlush(dpy);
 
     sleep(1);
